@@ -2,7 +2,7 @@
 ## More info later
 
 ## Changelog
-V0.0.1 - Interactions mostly stable
+V0.0.1 - Interactions mostly stable<br>
 V0.0.2 - MIDI early implmentation
 - Implement MPTK MIDI from Unity Asset Store
 - Create Instrument Script
