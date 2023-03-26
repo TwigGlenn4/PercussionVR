@@ -8,6 +8,10 @@ V0.0.2 - MIDI early implmentation
 - Create Instrument Script
 - Create and implement InGameDebug for debugging in VR
 - Create Bass Drum and Ride Cymbal prefabs
+V0.0.3 - Minor Fixes, UI start
+- Fixed delay from hit to sound
+- Added barebones partial UI
+- Preparing to attempt redoing interactions.
 
 ## LICENSE
 - I'm working on it...

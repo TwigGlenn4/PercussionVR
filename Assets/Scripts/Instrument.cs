@@ -5,16 +5,18 @@ using MidiPlayerTK;
 
 public class Instrument : MonoBehaviour {
 	
- public Material[] instrumentMaterials;
- Renderer rend;
- InGameDebug debugScreen;
- MidiStreamPlayer midiStreamPlayer;
+  public Material[] instrumentMaterials;
+  Renderer rend;
+  InGameDebug debugScreen;
+  MidiStreamPlayer midiStreamPlayer;
 
- [Range(0,127)]
- public int notePitch;
- [Range(0,127)]
- public int instChannel;
- public OVRInput.RawButton hotkey = OVRInput.RawButton.None;
+  [Range(0,127)]
+  public int notePitch;
+  [Range(0,127)]
+  public int instChannel;
+  public OVRInput.RawButton hotkey = OVRInput.RawButton.None;
+
+  private bool locked = false;
 
 
   // Start is called before the first frame update
@@ -27,6 +29,7 @@ public class Instrument : MonoBehaviour {
      debugScreen = GameObject.Find("DebugScreen").GetComponent<InGameDebug>();
      midiStreamPlayer = FindObjectOfType<MidiStreamPlayer>();
   }
+
   private void OnCollisionEnter(Collision col) {
     // Checks if the drum is hit by mallet
     GameObject hitBy = col.GetContact(0).otherCollider.gameObject;
@@ -62,11 +65,28 @@ public class Instrument : MonoBehaviour {
       
     }
   }
+  
 	private void OnCollisionExit(Collision col) {
     if (col.gameObject.name == "Mallet") {
       rend.sharedMaterial = instrumentMaterials[0];
     }
- }
+  }
+
+  public void ToggleLocked() {
+    OVRGrabbable grabbable = GetComponent<OVRGrabbable>();
+
+    locked = !locked;
+    if( locked ) { // Disable the grabbable if the instrument is now locked
+      grabbable.enabled = false;
+      debugScreen.Log("[Instrument]: "+gameObject.name+" is Unlocked");
+    } 
+    else { // Enable the grabbable if the instrument is now unlocked
+      grabbable.enabled = true;
+      debugScreen.Log("[Instrument]: "+gameObject.name+" is Locked");
+    }
+  }
+
+ 
   // Update is called once per frame
   void Update() {
       if(OVRInput.Get(hotkey) ) {

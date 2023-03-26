@@ -35,16 +35,16 @@ public class PlayerController : MonoBehaviour {
 			malletTrans.rotation = controllerTrans.rotation * Quaternion.Euler(45, 0, 0);
     }
 
-    if(OVRInput.Get(OVRInput.RawButton.B) || Input.GetKeyDown(KeyCode.R)) {
-      // Almost works, but something is fucky. Maybe just delete mallet and spawn new one at the hand? All depends on the hand transform.
-      Transform malletTrans = GameObject.Find("Mallet").transform;
-      Vector3 newPos = new Vector3(0.3f, 10.2f, -19.5f);
-      Quaternion newRot = Quaternion.Euler(90, 0, -45);
+    // if(OVRInput.Get(OVRInput.RawButton.B) || Input.GetKeyDown(KeyCode.R)) {
+    //   // Almost works, but something is fucky. Maybe just delete mallet and spawn new one at the hand? All depends on the hand transform.
+    //   Transform malletTrans = GameObject.Find("Mallet").transform;
+    //   Vector3 newPos = new Vector3(0.3f, 10.2f, -19.5f);
+    //   Quaternion newRot = Quaternion.Euler(90, 0, -45);
 
-			debugScreen.Log("[PlayerController]: Moving mallet to ("+newPos.x+", "+newPos.y+", "+newPos.z+")");
+		// 	debugScreen.Log("[PlayerController]: Moving mallet to ("+newPos.x+", "+newPos.y+", "+newPos.z+")");
       
-      malletTrans.position = newPos;
-			malletTrans.rotation = newRot;
-    }
+    //   malletTrans.position = newPos;
+		// 	malletTrans.rotation = newRot;
+    // }
   }
 }
