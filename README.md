@@ -15,6 +15,11 @@
 - Added barebones partial UI
 - Preparing to attempt redoing interactions.
 
+### V0.0.4 - Switched to OVRInteractions
+- Removed partial implementaion using OVRGrabber and OVRGrabbable
+- Implement OVRInteractions properly
+- Switch to OVR prefabs for UI, still broken
+
 ## LICENSE
 - I'm working on it...
 - Unity Asset Store packages (Oculus XR Plugin, Maestro MPTK Free) are included so the darn thing opens properly, I'll add their licenses here when I get a chance.

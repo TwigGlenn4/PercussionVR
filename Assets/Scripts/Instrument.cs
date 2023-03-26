@@ -36,29 +36,14 @@ public class Instrument : MonoBehaviour {
 
     // debugScreen.Log("[Instrument]: Other Contact point is "+ hitBy.name);
 
-    if( hitBy.name == "MalletHead") {
+    if( hitBy.name == "MalletHead" ) {
       // debugScreen.Log("[Instrument]: Velocity = "+ col.relativeVelocity);
+      // Debug.Log("Hit by MalletHead");
 
-      OVRPlugin.SystemHeadset headset = OVRPlugin.GetSystemHeadsetType();
 
-      int velocity = 100;
-
-      // Get controller's velocity, or mallet's velocity in Editor Run
-      if( headset == OVRPlugin.SystemHeadset.Oculus_Quest_2 ) {        
-        GameObject hitAnchor = hitBy.transform.parent.parent.gameObject;
-        OVRInput.Controller controllerType = hitAnchor.transform.GetChild(0).GetChild(0).gameObject.GetComponent<OVRRuntimeController>().m_controller;
-        float rawVelocity = OVRInput.GetLocalControllerVelocity(controllerType).sqrMagnitude;
-        velocity = (int)Mathf.Clamp(Mathf.Log((5*rawVelocity)+1, 2)*17 , 0, 127);
-        
-        // debugScreen.Log("[Instrument]: "+hitAnchor.name+" velocity = "+hitAnchor.GetComponent<Rigidbody>().velocity);
-        // debugScreen.Log("[Instrument]: controllerType = "+controllerType);
-        // debugScreen.Log("[Instrument]: velocity = "+velocity+", sqrVelocity = "+OVRInput.GetLocalControllerVelocity(controllerType).sqrMagnitude);
-        debugScreen.Log("[Instrument]: "+controllerType+" hit "+gameObject.name+" at velocity "+velocity );
-      }
-      else {
-        GameObject mallet = hitBy.transform.parent.gameObject;
-        debugScreen.Log("[Instrument]: "+mallet.name+" velocity = "+mallet.GetComponent<Rigidbody>().velocity);
-      }
+      float rawVelocity = hitBy.GetComponent<VelocityTracker>().velocity;
+      int velocity = (int)Mathf.Clamp(Mathf.Log((5*rawVelocity)+1, 2)*17 , 0, 127);
+      debugScreen.Log("[Instrument]: "+gameObject.name+" hit at velocity "+velocity );
 
       rend.sharedMaterial = instrumentMaterials[1];
       MPTKEvent noteEvent = PlayNote(velocity);
@@ -67,7 +52,9 @@ public class Instrument : MonoBehaviour {
   }
   
 	private void OnCollisionExit(Collision col) {
-    if (col.gameObject.name == "Mallet") {
+    GameObject hitBy = col.GetContact(0).otherCollider.gameObject;
+
+    if ( hitBy.name == "Mallet" ) {
       rend.sharedMaterial = instrumentMaterials[0];
     }
   }
